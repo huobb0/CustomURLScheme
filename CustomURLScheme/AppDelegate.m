@@ -20,6 +20,21 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    NSString *URLString = [url absoluteString];
+    if ([URLString rangeOfString:@"delete"].location != NSNotFound) {
+        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Deleted all records!"
+                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } else if ([URLString rangeOfString:@"sort"].location != NSNotFound) {
+        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Sorted all records!"
+                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Displaying records..."
+                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
