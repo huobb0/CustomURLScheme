@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
@@ -21,18 +20,45 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    
     NSString *URLString = [url absoluteString];
-    if ([URLString rangeOfString:@"delete"].location != NSNotFound) {
-        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Deleted all records!"
-                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if ([URLString rangeOfString:@"sort"].location != NSNotFound) {
-        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Sorted all records!"
-                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    NSString *command = [url host];
+    NSString *param = [url query];
+    
+    NSString *callerApp = options[@"UIApplicationOpenURLOptionsSourceApplicationKey"];
+    NSLog(callerApp);
+    
+    if ([command isEqualToString:@"deleteall"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Result"
+                                    message:@"Deleted all records!"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil]
+         show];
+        
+    } else if ([command isEqualToString:@"delete"]){
+        [[[UIAlertView alloc] initWithTitle:@"Result"
+                                    message:[NSString stringWithFormat:@"Deleted record %@...",param]
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil]
+         show];
+        
+    } else if ([command isEqualToString:@"display"]){
+        [[[UIAlertView alloc] initWithTitle:@"Result"
+                                    message:[NSString stringWithFormat:@"Deleted record %@...",param]
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil]
+         show];
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"Displaying records..."
-                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-
+            [[[UIAlertView alloc] initWithTitle:@"Result"
+                                        message:[NSString stringWithFormat:@"Unknown command %@...",command]
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil]
+             show];
+        }
     return YES;
 }
 
