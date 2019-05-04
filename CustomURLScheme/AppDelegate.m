@@ -46,7 +46,7 @@
         
     } else if ([command isEqualToString:@"display"]){
         [[[UIAlertView alloc] initWithTitle:@"Result"
-                                    message:[NSString stringWithFormat:@"Deleted record %@...",param]
+                                    message:[NSString stringWithFormat:@"Displaying record %@...",param]
                                    delegate:nil
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil]
